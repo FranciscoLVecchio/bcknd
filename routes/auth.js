@@ -7,6 +7,7 @@ const {check} = require('express-validator')
 const {checkError} = require('../middlewares/check-err')
 const router = Router()
 const {newUser, loginUser, renewToken} = require('../controllers/auth')
+const{validateJWT} = require('../middlewares/validate_jwt')
 
 router.post('/new',
     [check('name','El nombre es obligatorio').not().isEmpty(),
@@ -23,7 +24,7 @@ router.post('/',
     loginUser
     )
 
-router.get('/renew', renewToken)
+router.get('/renew', validateJWT, renewToken)
 
 
 
